@@ -93,7 +93,8 @@ public class ConvexPolygonFactory {
     }
 
     private static Points deconstructOutlines(List<Line> outlines) {
-        List<Point> result = new ArrayList<>(Arrays.asList(outlines.get(0).getCommonPointWith(outlines.get(outlines.size() - 1))));
+        List<Point> result = new ArrayList<>();
+        Line first = outlines.get(0);
         Line current;
         Line next = outlines.remove(0);
         while (!outlines.isEmpty()) {
@@ -101,6 +102,7 @@ public class ConvexPolygonFactory {
             next = outlines.remove(0);
             result.add(current.getCommonPointWith(next));
         }
+        result.add(next.getCommonPointWith(first));
         return new Points(result);
     }
 
