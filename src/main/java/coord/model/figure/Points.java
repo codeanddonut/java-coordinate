@@ -15,7 +15,7 @@ public final class Points implements Iterable<Point> {
 
     public Points(Points points, Comparator<Point> criteria) {
         List<Point> aligned = new ArrayList<>();
-        aligned.addAll(points.points);
+        aligned.addAll(new HashSet<>(points.points));
         aligned.sort(criteria);
         this.points = Collections.unmodifiableList(aligned);
     }
