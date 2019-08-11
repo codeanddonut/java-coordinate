@@ -2,7 +2,7 @@ package coord.model.figure;
 
 import java.util.*;
 
-public final class Points implements Iterable<Point> {
+public final class Points {
     private final List<Point> points;
 
     public Points(List<Point> points) {
@@ -14,29 +14,27 @@ public final class Points implements Iterable<Point> {
     }
 
     public Points(Points points, Comparator<Point> criteria) {
-        List<Point> aligned = new ArrayList<>();
-        aligned.addAll(new HashSet<>(points.points));
+        List<Point> aligned = new ArrayList<>(new HashSet<>(points.points));
         aligned.sort(criteria);
         this.points = Collections.unmodifiableList(aligned);
     }
 
     public int number() {
-        return points.size();
+        return this.points.size();
     }
 
     public Point get(int index) {
-        return points.get(index);
+        return this.points.get(index);
+    }
+
+    public List<Point> toList() {
+        return this.points;
     }
 
     @Override
     public String toString() {
-        String result = points.toString();
-        return result.substring(1, result.length() - 1);
-    }
-
-    @Override
-    public Iterator<Point> iterator() {
-        return points.iterator();
+        final String tmp = this.points.toString();
+        return tmp.substring(1, tmp.length() - 1);
     }
 
     @Override
@@ -48,11 +46,11 @@ public final class Points implements Iterable<Point> {
             return false;
         }
         Points rhs = (Points) o;
-        return Objects.equals(new HashSet<>(points), new HashSet<>(rhs.points));
+        return Objects.equals(new HashSet<>(this.points), new HashSet<>(rhs.points));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(points);
+        return Objects.hash(this.points);
     }
 }

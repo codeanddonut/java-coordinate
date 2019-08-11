@@ -7,16 +7,23 @@ public class ConvexPolygon extends Figure {
 
     @Override
     public double area() {
-        if (Double.compare(areaCache, .0) == 0) {
-            areaCache = area(.0, 0);
+        if (Double.compare(this.areaCache, .0) == 0) {
+            this.areaCache = area(.0, 0);
         }
-        return areaCache;
+        return this.areaCache;
     }
 
     private double area(double result, int i) {
-        if (i + 2 == points.number()) {
+        if (i + 2 == this.points.number()) {
             return result;
         }
-        return area(result + new Triangle(points.get(0), points.get(i + 1), points.get(i + 2)).area(), i + 1);
+        return area(
+                result + new Triangle(
+                        this.points.get(0),
+                        this.points.get(i + 1),
+                        this.points.get(i + 2)
+                ).area(),
+                i + 1
+        );
     }
 }

@@ -11,13 +11,13 @@ public class Triangle extends ConvexPolygon {
 
     @Override
     public double area() {
-        if (Double.compare(areaCache, .0) == 0) {
+        if (Double.compare(super.areaCache, .0) == 0) {
             final double a = new Line(points.get(0), points.get(1)).length();
             final double b = new Line(points.get(1), points.get(2)).length();
             final double c = new Line(points.get(2), points.get(0)).length();
             final double s = (a + b + c) / 2.0;
-            areaCache = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+            super.areaCache = Math.sqrt(s * (s - a) * (s - b) * (s - c));
         }
-        return areaCache;
+        return super.areaCache;
     }
 }

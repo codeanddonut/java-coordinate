@@ -12,8 +12,8 @@ public class OutputView {
     private static final int Y_MIN = 0;
 
     public static void printScreen(Points points) {
-        Points aligned = new Points(points, (a, b) -> (a.y() != b.y() ? b.y() - a.y() : a.x() - b.x()));
-        StringBuilder result = new StringBuilder();
+        final Points aligned = new Points(points, (a, b) -> (a.y() != b.y() ? b.y() - a.y() : a.x() - b.x()));
+        final StringBuilder result = new StringBuilder();
         for (int y = Y_MAX, cursor = 0, offset = 0; y >= Y_MIN;) {
             if (cursor < points.number() && y == aligned.get(cursor).y()) {
                 result.append(printLine(aligned.get(cursor), offset));
@@ -33,8 +33,8 @@ public class OutputView {
     }
 
     private static String repeatBlank(int n) {
-        StringBuilder blank = new StringBuilder();
-        IntStream.range(0, n).boxed().forEach(i -> blank.append("   "));
+        final StringBuilder blank = new StringBuilder();
+        IntStream.range(0, n).forEach(i -> blank.append("   "));
         return blank.toString();
     }
 
@@ -43,6 +43,6 @@ public class OutputView {
     }
 
     public static void printAreaOfFigure(ConvexPolygon polygon) {
-        System.out.format("%d각형의 넓이는 %g입니다.", polygon.getNumberOfAngles(), polygon.area());
+        System.out.format("%d각형의 넓이는 %g입니다.", polygon.numberOfAngles(), polygon.area());
     }
 }

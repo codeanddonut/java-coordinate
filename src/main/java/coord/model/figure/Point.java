@@ -21,7 +21,7 @@ public final class Point {
 
     @Override
     public String toString() {
-        return "(" + x() + ", " + y() + ")";
+        return "(" + this.x.val() + ", " + this.y.val() + ")";
     }
 
     @Override
@@ -33,11 +33,11 @@ public final class Point {
             return false;
         }
         Point rhs = (Point) o;
-        return x() == rhs.x() && y() == rhs.y();
+        return (this.x.val() == rhs.x.val()) && (this.y.val() == rhs.y.val());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x(), y());
+        return Objects.hash(x.val(), y.val());
     }
 }

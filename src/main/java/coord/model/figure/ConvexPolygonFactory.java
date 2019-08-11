@@ -2,7 +2,10 @@ package coord.model.figure;
 
 import coord.model.utils.Combinations;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ConvexPolygonFactory {
     public static ConvexPolygon makeFrom(Points points) {
@@ -11,6 +14,26 @@ public class ConvexPolygonFactory {
             throw new IllegalArgumentException("점의 개수가 너무 적습니다. 3점 이상이 일직선상에 존재합니다.");
         }
         return makeFromValidated(actualPoints);
+    }
+
+    private static Points removeRedundantPoints(Points points) {
+        return removeRedundantPoints(new ArrayList<>(points.toList()), new ArrayList<>());
+    }
+
+    private static Points removeRedundantPoints(List<Point> points, List<Point> result) {
+        points.add(points.remove(0));
+        if (result.contains(points.get(0))) {
+            return new Points(result);
+        }
+        final Combinations comb = new Combinations(points.size() - 1, 2);
+        while (comb.hasNext()) {
+            final List<Integer> pair = comb.next();
+            if (new Line(points.get(pair.get(0) + 1), points.get(pair.get(1) + 1)).includes(points.get(0))) {
+                return removeRedundantPoints(points, result);
+            }
+        }
+        result.add(points.get(0));
+        return removeRedundantPoints(points, result);
     }
 
     private static ConvexPolygon makeFromValidated(Points points) {
@@ -24,50 +47,28 @@ public class ConvexPolygonFactory {
         return new ConvexPolygon(deconstructOutlines(alignOutlines(outlines)));
     }
 
-    private static Points removeRedundantPoints(Points points) {
-        List<Point> clone = new ArrayList<>();
-        points.forEach(clone::add);
-        return removeRedundantPoints(clone, new ArrayList<>());
-    }
-
-    private static Points removeRedundantPoints(List<Point> points, List<Point> result) {
-        points.add(points.remove(0));
-        if (result.contains(points.get(0))) {
-            return new Points(result);
-        }
-        Combinations comb = new Combinations(points.size() - 1, 2);
-        while (comb.hasNext()) {
-            List<Integer> pair = comb.next();
-            if (new Line(points.get(pair.get(0) + 1), points.get(pair.get(1) + 1)).includes(points.get(0))) {
-                return removeRedundantPoints(points, result);
-            }
-        }
-        result.add(points.get(0));
-        return removeRedundantPoints(points, result);
-    }
-
     private static List<Line> getOutlines(Points points) {
-        List<Line> result = getEveryLines(points);
-        List<Line> exclude = getIntersectingLines(result);
+        final List<Line> result = getEveryLines(points);
+        final List<Line> exclude = getIntersectingLines(result);
         result.removeAll(exclude);
         return result;
     }
 
     private static List<Line> getEveryLines(Points points) {
         final List<Line> everyLines = new ArrayList<>();
-        Combinations comb = new Combinations(points.number(), 2);
+        final Combinations comb = new Combinations(points.number(), 2);
         while (comb.hasNext()) {
-            List<Integer> pair = comb.next();
+            final List<Integer> pair = comb.next();
             everyLines.add(new Line(points.get(pair.get(0)), points.get(pair.get(1))));
         }
         return everyLines;
     }
 
     private static List<Line> getIntersectingLines(List<Line> lines) {
-        Set<Line> result = new HashSet<>();
-        Combinations comb = new Combinations(lines.size(), 2);
+        final Set<Line> result = new HashSet<>();
+        final Combinations comb = new Combinations(lines.size(), 2);
         while (comb.hasNext()) {
-            List<Integer> pair = comb.next();
+            final List<Integer> pair = comb.next();
             if (lines.get(pair.get(0)).intersectsWith(lines.get(pair.get(1)))) {
                 result.add(lines.get(pair.get(0)));
                 result.add(lines.get(pair.get(1)));
@@ -93,8 +94,8 @@ public class ConvexPolygonFactory {
     }
 
     private static Points deconstructOutlines(List<Line> outlines) {
-        List<Point> result = new ArrayList<>();
-        Line first = outlines.get(0);
+        final List<Point> result = new ArrayList<>();
+        final Line first = outlines.get(0);
         Line current;
         Line next = outlines.remove(0);
         while (!outlines.isEmpty()) {

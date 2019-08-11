@@ -30,7 +30,7 @@ public class Combinations implements Iterator<List<Integer>> {
         if (k == 1) {
             return Collections.unmodifiableList(new ArrayList<>(Arrays.asList(current++)));
         }
-        List<Integer> result = new ArrayList<>(Arrays.asList(current));
+        final List<Integer> result = new ArrayList<>(Arrays.asList(current));
         result.addAll(subCombination.next());
         if (!subCombination.hasNext()) {
             subCombination = this.hasNext() ? new Combinations(n, k - 1, ++current + 1) : null;

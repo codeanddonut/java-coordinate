@@ -5,26 +5,25 @@ import coord.model.figure.Line;
 import coord.model.figure.Points;
 import coord.view.InputView;
 import coord.view.OutputView;
+import coord.view.TryUntilSuccess;
 
 public class App {
     public static void main(String[] argc) {
-        try {
-            app();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        TryUntilSuccess.run(App::run);
     }
 
-    private static void app () {
+    private static boolean run() {
         final Points points = InputView.inputCoordinates();
         OutputView.printScreen(points);
         System.out.println();
         if (points.number() == 2) {
             OutputView.printLengthOfLine(new Line(points));
-            return;
+            return true;
         }
         if (points.number() > 2) {
             OutputView.printAreaOfFigure(ConvexPolygonFactory.makeFrom(points));
+            return true;
         }
+        return false;
     }
 }

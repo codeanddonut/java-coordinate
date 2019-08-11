@@ -10,7 +10,7 @@ public abstract class Figure {
 
     public abstract double area();
 
-    public int getNumberOfAngles() {
-        return points.number();
+    public int numberOfAngles() {
+        return this.points.number();
     }
 }

@@ -56,7 +56,7 @@ public final class Line {
 
     @Override
     public String toString() {
-        return p.toString() + "-" + q.toString();
+        return this.p.toString() + "-" + this.q.toString();
     }
 
     @Override
@@ -68,11 +68,11 @@ public final class Line {
             return false;
         }
         Line rhs = (Line) o;
-        return Objects.equals(p, rhs.p) && Objects.equals(q, rhs.q);
+        return Objects.equals(this.p, rhs.p) && Objects.equals(this.q, rhs.q);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(p, q);
+        return Objects.hash(this.p, this.q);
     }
 }
