@@ -8,7 +8,7 @@ public class K5 extends Car {
     }
 
     @Override
-    public int getDistancePerLiter() {
+    public int distancePerLiter() {
         return DPL;
     }
 }

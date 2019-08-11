@@ -12,11 +12,11 @@ class CarTest {
 
     @Test
     void chargeQuantityTest() {
-        assertThat(new Avante(255).getChargeQuantity()).isEqualTo(17);
+        assertThat(new Avante(255).chargeQuantity()).isEqualTo(17);
     }
 
     @Test
-    void getNameTest() {
-        assertThat(new K5(123).getName()).isEqualTo("K5");
+    void nameTest() {
+        assertThat(new K5(123).name()).isEqualTo("K5");
     }
 }

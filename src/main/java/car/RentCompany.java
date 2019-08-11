@@ -20,7 +20,7 @@ public class RentCompany {
     public String generateReport() {
         StringBuilder report = new StringBuilder();
         cars.forEach(car -> {
-            report.append(car.getName() + " : " + car.getChargeQuantity() + "리터\n");
+            report.append(car.name() + " : " + car.chargeQuantity() + "리터\n");
         });
         return report.toString();
     }

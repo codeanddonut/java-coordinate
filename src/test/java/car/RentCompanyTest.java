@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class RentCompanyTest {
     @Test
     void generateReport() {
-        RentCompany company = RentCompany.create();
+        final RentCompany company = RentCompany.create();
         company.addCar(new Sonata(150))
                 .addCar(new K5(260))
                 .addCar(new Sonata(120))

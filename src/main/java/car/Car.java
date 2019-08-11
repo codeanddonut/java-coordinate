@@ -7,17 +7,17 @@ public abstract class Car {
         this.tripDistance = tripDistance;
     }
 
-    public abstract int getDistancePerLiter();
+    public abstract int distancePerLiter();
 
-    public int getTripDistance() {
-        return tripDistance;
-    };
+    public int tripDistance() {
+        return this.tripDistance;
+    }
 
-    public String getName() {
+    public String name() {
         return this.getClass().toString().substring(10);
     }
 
-    public int getChargeQuantity() {
-        return getTripDistance() / getDistancePerLiter();
+    public int chargeQuantity() {
+        return this.tripDistance() / distancePerLiter();
     }
 }
